@@ -21,6 +21,7 @@ public class Main {
 	 * @return O comando escolhido.
 	 */
 	private static String menu(Scanner scanner) {
+		System.out.println();
 		System.out.println(
 				"(C)adastrar Aluno\n" +
 				"(E)xibir Aluno\n" +
@@ -61,9 +62,11 @@ public class Main {
 //			adicionaFavorito(scanner);
 //			break;
 		case "S":
+			System.out.println("FINALIZANDO...");
 			System.exit(0);
 			break;
 		default:
+			System.out.println("AÇÂO INVÁLIDA!");
 			System.exit(0);
 		}
 	}
@@ -83,7 +86,7 @@ public class Main {
 				registrationNumber,
 				name,
 				course
-				));
+				).getMessage());
 	}
 	
 	public static void displayClassmate(
@@ -96,6 +99,7 @@ public class Main {
 		
 		System.out.println(classmatesController
 				.getClassmate(registrationNumber)
+				.getMessage()
 			);
 	}
 }

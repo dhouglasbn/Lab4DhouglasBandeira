@@ -23,17 +23,17 @@ public class ClassmatesController {
 	 * @param curso
 	 * @return sucesso do cadastro.
 	 */
-	public String registerClassmate(
+	public OperationResult registerClassmate(
 			String registrationNumber,
 			String name,
 			String course
 			) {
 		if (this.classmateAlreadyExists(registrationNumber)) {
-			return "MATRÍCULA JÁ CADASTRADA!";
+			return new OperationResult(0, "MATRÍCULA JÁ CADASTRADA!");
 		}
 		Classmate classmate = new Classmate(registrationNumber, name, course);
 		this.ClassmatesMap.put(registrationNumber, classmate);
-		return "CADASTRO REALIZADO!";
+		return new OperationResult(1, "CADASTRO REALIZADO!");
 	}
 	
 	/** Verifica se um aluno já existe
@@ -50,12 +50,12 @@ public class ClassmatesController {
 	 * @param Número de matrícula
 	 * @return Aluno
 	 */
-	public String getClassmate(String registrationNumber) {
+	public OperationResult getClassmate(String registrationNumber) {
 	    Classmate classmate = this.ClassmatesMap.get(registrationNumber);
 	    if (classmate == null) {
-	    	return "ALUNO NÃO CADASTRADO.";
+	    	return new OperationResult(0, "ALUNO NÃO CADASTRADO.");
 	    }
-	    return classmate.toString();
+	    return new OperationResult(1, classmate.toString());
 	}
 
 }
