@@ -7,10 +7,16 @@ public class Main {
 	public static void main(String[] args) {
 		Scanner scanner = new Scanner(System.in);
 		ClassmatesController classmatesController = new ClassmatesController();
+		GroupsController groupsController = new GroupsController();
 		String choose = "";
 		while (true) {
 			choose = menu(scanner);
-			command(choose, classmatesController, scanner);
+			command(
+					choose,
+					classmatesController,
+					groupsController,
+					scanner
+			);
 		}
 	}
 	
@@ -37,30 +43,55 @@ public class Main {
 	/**
 	 * Interpreta a opção escolhida por quem está usando o sistema.
 	 * 
-	 * @param opcao   Opção digitada.
+	 * @param option   Opção digitada.
 	 * @param agenda  A agenda que estamos manipulando.
 	 * @param scanner Objeto scanner para o caso do comando precisar de mais input.
 	 */
 	private static void command(
-			String opcao,
+			String option,
 			ClassmatesController classmatesController,
+			GroupsController groupController,
 			Scanner scanner) {
-		switch (opcao) {
+		switch (option) {
 		case "C":
 			registerClassmate(classmatesController, scanner);
 			break;
 		case "E":
 			displayClassmate(classmatesController, scanner);
 			break;
-//		case "N":
-//			exibeContato(scanner);
-//			break;
-//		case "A":
-//			listaFavoritos();
-//			break;
-//		case "O":
-//			adicionaFavorito(scanner);
-//			break;
+		case "N":
+			registerGroup(groupController, scanner);
+			break;
+		case "A":
+			System.out.print("(A)locar Aluno ou (P)ertinência a Grupo?");
+			String newOption = scanner.next().toUpperCase();
+			switch (newOption) {
+				case "A":
+					allocateClassmateInGroup(
+							classmatesController,
+							groupController,
+							scanner
+							);
+					break;
+				case "P":
+					classmateBelongsToGroup(
+							classmatesController,
+							groupController,
+							scanner
+							);
+					break;
+				default:
+					System.out.println("AÇÂO INVÁLIDA!");
+					System.exit(0);
+			}
+			break;
+		case "O":
+			displayClassmateGroups(
+					classmatesController,
+					groupController,
+					scanner
+					);
+			break;
 		case "S":
 			System.out.println("FINALIZANDO...");
 			System.exit(0);
@@ -70,18 +101,19 @@ public class Main {
 			System.exit(0);
 		}
 	}
-	
+
 	public static void registerClassmate(
 			ClassmatesController classmatesController, 
 			Scanner scanner
 			) {
+		
 		System.out.println("Matrícula: ");
-		scanner.nextLine();
-		String registrationNumber = scanner.nextLine();
+		String registrationNumber = scanner.next();
 		System.out.println("Nome: ");
-		String name = scanner.nextLine();
+		String name = scanner.next();
 		System.out.println("Curso: ");
-		String course = scanner.nextLine();
+		String course = scanner.next();
+		
 		System.out.println(classmatesController.registerClassmate(
 				registrationNumber,
 				name,
@@ -93,13 +125,91 @@ public class Main {
 			ClassmatesController classmatesController,
 			Scanner scanner
 			) {
+		
 		System.out.println("Matrícula: ");
-		scanner.nextLine();
-		String registrationNumber = scanner.nextLine();
+		String registrationNumber = scanner.next();
 		
 		System.out.println(classmatesController
-				.getClassmate(registrationNumber)
+				.displayClassmate(registrationNumber)
 				.getMessage()
 			);
+	}
+	
+	public static void registerGroup(
+			GroupsController groupsController,
+			Scanner scanner
+			) {
+		
+		System.out.println("Grupo: ");
+		String name = scanner.next();
+		
+		scanner.nextLine();
+		System.out.println("Tamanho: ");
+		String size = scanner.nextLine();
+		
+		if (size.isBlank()) {
+			System.out.println(groupsController
+			.registerGroup(name)
+			.getMessage());
+			return;
+		}
+		
+		System.out.println(groupsController
+		.registerGroup(name, Integer.valueOf(size))
+		.getMessage()
+		);
+	}
+	
+	public static void allocateClassmateInGroup(
+			ClassmatesController classmatesController,
+			GroupsController groupsController,
+			Scanner scanner
+			) {
+		System.out.println("Matrícula: ");
+		String registrationNumber = scanner.next();
+		System.out.println("Grupo: ");
+		String groupName = scanner.next();
+		Classmate classmate = classmatesController.getClassmate(registrationNumber);
+		
+		System.out.println(
+				groupsController
+				.addClassmateToGroup(classmate, groupName)
+				.getMessage()
+		);
+	}
+	
+	private static void classmateBelongsToGroup(
+			ClassmatesController classmatesController,
+			GroupsController groupsController,
+			Scanner scanner
+			) {
+		System.out.println("Grupo: ");
+		String groupName = scanner.next();
+		System.out.println("Aluno: ");
+		String registrationNumber = scanner.next();
+		Classmate classmate = classmatesController.getClassmate(registrationNumber);
+		
+		System.out.println(
+				groupsController
+				.classmateBelongsToGroup(classmate, groupName)
+				.getMessage()
+		);
+	}
+	
+	public static void displayClassmateGroups(
+			ClassmatesController classmatesController,
+			GroupsController groupsController,
+			Scanner scanner
+			) {
+		System.out.println("Aluno: ");
+		String registrationNumber = scanner.next();
+		
+		Classmate classmate = classmatesController.getClassmate(registrationNumber);
+		
+		System.out.println(
+				groupsController
+				.displayClassmateGroups(classmate)
+				.getMessage()
+		);
 	}
 }

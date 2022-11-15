@@ -5,7 +5,7 @@ import java.util.HashMap;
 public class ClassmatesController {
 
 	/**
-	 * Mapa de alunos
+	 * Mapa de alunos { número de matrícula: Aluno }
 	 */
 	private HashMap<String, Classmate> ClassmatesMap;
 	
@@ -36,6 +36,15 @@ public class ClassmatesController {
 		return new OperationResult(1, "CADASTRO REALIZADO!");
 	}
 	
+	/** Retorna o aluno
+	 * 
+	 * @param Número da matrícula.
+	 * @return aluno.
+	 */
+	public Classmate getClassmate(String registrationNumber) {
+		return this.ClassmatesMap.get(registrationNumber);
+	}
+	
 	/** Verifica se um aluno já existe
 	 * 
 	 * @param Número de matrícula
@@ -50,12 +59,11 @@ public class ClassmatesController {
 	 * @param Número de matrícula
 	 * @return Aluno
 	 */
-	public OperationResult getClassmate(String registrationNumber) {
+	public OperationResult displayClassmate(String registrationNumber) {
 	    Classmate classmate = this.ClassmatesMap.get(registrationNumber);
 	    if (classmate == null) {
 	    	return new OperationResult(0, "ALUNO NÃO CADASTRADO.");
 	    }
 	    return new OperationResult(1, classmate.toString());
 	}
-
 }

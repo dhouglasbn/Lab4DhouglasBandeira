@@ -51,7 +51,7 @@ public class Classmate {
 	
 	/** Retorna o curso do aluno.
 	 * 
-	 * @return course.
+	 * @return curso.
 	 */
 	public String getCourse() {
 		return course;
