@@ -6,6 +6,8 @@ public class OperationResult {
 	
 	private String message;
 	
+	private String result;
+	
 	public OperationResult(int status, String message) {
 		this.status = status;
 		this.message = message;
