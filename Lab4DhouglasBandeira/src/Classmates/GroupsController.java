@@ -93,6 +93,7 @@ public class GroupsController {
 		}
 		
 		group.addClassmate(classmate);
+		classmate.addGroup(groupName);
 		
 		return new OperationResult(1, "ALUNO ALOCADO!");
 	}
@@ -111,9 +112,7 @@ public class GroupsController {
 			return new OperationResult(0, "GRUPO NÃO CADASTRADO");
 		}
 		
-		Group group = this.getGroup(groupName);
-		
-		if (group.isClassmateOnGroup(classmate)) {
+		if (classmate.isOnGroup(groupName)) {
 			return new OperationResult(1, "ALUNO PERTENCE AO GRUPO.");
 		} else {
 			return new OperationResult(0, "ALUNO NÃO PERTENCE AO GRUPO.");

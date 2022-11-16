@@ -1,5 +1,7 @@
 package Classmates;
 
+import java.util.HashSet;
+
 public class Classmate {
 	
 	/**
@@ -16,6 +18,11 @@ public class Classmate {
 	 * Curso do aluno
 	 */
 	private String course;
+	
+	/**
+	 * Grupos aos quais o aluno pertence. 
+	 */
+	private HashSet<String> groups;
 	
 	/** Cria um aluno a partir dos parâmetros.
 	 * 
@@ -55,6 +62,14 @@ public class Classmate {
 	 */
 	public String getCourse() {
 		return course;
+	}
+	
+	public void addGroup(String groupName) {
+		this.groups.add(groupName);
+	}
+	
+	public boolean isOnGroup(String groupName) {
+		return this.groups.contains(groupName);
 	}
 
 	@Override

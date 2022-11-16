@@ -1,5 +1,6 @@
 package Classmates;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 public class ClassmatesController {
@@ -10,11 +11,18 @@ public class ClassmatesController {
 	private HashMap<String, Classmate> ClassmatesMap;
 	
 	/**
+	 * Lista ordenada de alunos que responderam às perguntas.
+	 */
+	private ArrayList<Classmate> answeredQuestions;
+	
+	/**
 	 * Cria um Controlador de alunos.
 	 */
 	public ClassmatesController() {
 		this.ClassmatesMap = new HashMap<>();
+		this.answeredQuestions = new ArrayList<Classmate>();
 	}
+	
 
 	/** Registra um aluno através do número de matrícula.
 	 * 
@@ -65,5 +73,42 @@ public class ClassmatesController {
 	    	return new OperationResult(0, "ALUNO NÃO CADASTRADO.");
 	    }
 	    return new OperationResult(1, classmate.toString());
+	}
+	
+	/** Vai registrar na lista, a resposta de um aluno
+	 * 
+	 * @param Número de matrícula
+	 * @return resultado da operação
+	 */
+	public OperationResult registerClassmateAnswer(String registrationNumber) {
+		Classmate classmate = this.ClassmatesMap.get(registrationNumber);
+		
+		if (classmate == null) {
+			return new OperationResult(0, "Aluno não cadastrado.");
+		}
+		
+		this.answeredQuestions.add(classmate);
+		return new OperationResult(1, "ALUNO REGISTRADO!");
+	}
+	
+	public OperationResult displayClassmatesAnswers() {
+		int index = 0;
+		String result = "Alunos:\n";
+		for (Classmate classmate: this.answeredQuestions) {
+			index++;
+			result += index +
+					". " + classmate.getRegistrationNumber() +
+					" - " + classmate.getName() +
+					" - " + classmate.getCourse() + "\n";
+		}
+		return new OperationResult(1, result);
+	}
+	
+	public Classmate[] getMostActiveClassmates() {
+		Classmate[] mostActive = null;
+		for (Classmate classmate: this.ClassmatesMap.values()) {
+			
+		}
+		return mostActive;
 	}
 }

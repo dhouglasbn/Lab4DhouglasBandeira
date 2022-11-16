@@ -34,8 +34,10 @@ public class Main {
 				"(N)ovo Grupo\n" +
 				"(A)locar Aluno no Grupo e Verificar pertinência a Grupos\n" +
 				"(O)lhaí quais Grupos o Aluno Tá.\n" +
-				"(S)im, quero Fechar o Programa!" +
-				"\n" + 
+				"(S)im, quero Fechar o Programa!\n" +
+				"(R)egistrar Aluno que Respondeu\n" + 
+				"(I)mprimir Alunos que Responderam\n" +
+				"(M)ostrar Estatísticas\n" +
 				"Opção> ");
 		return scanner.next().toUpperCase();
 	}
@@ -92,6 +94,19 @@ public class Main {
 					scanner
 					);
 			break;
+		case "R":
+			registerClassmateAnswer(classmatesController, scanner);
+			break;
+		case "I":
+			displayAnswers(classmatesController, scanner);
+			break;
+		case "M":
+			showData(
+					classmatesController,
+					groupController,
+					scanner
+					);
+			break;
 		case "S":
 			System.out.println("FINALIZANDO...");
 			System.exit(0);
@@ -102,17 +117,18 @@ public class Main {
 		}
 	}
 
-	public static void registerClassmate(
+	private static void registerClassmate(
 			ClassmatesController classmatesController, 
 			Scanner scanner
 			) {
 		
+		scanner.nextLine();
 		System.out.println("Matrícula: ");
-		String registrationNumber = scanner.next();
+		String registrationNumber = scanner.nextLine();
 		System.out.println("Nome: ");
-		String name = scanner.next();
+		String name = scanner.nextLine();
 		System.out.println("Curso: ");
-		String course = scanner.next();
+		String course = scanner.nextLine();
 		
 		System.out.println(classmatesController.registerClassmate(
 				registrationNumber,
@@ -121,7 +137,7 @@ public class Main {
 				).getMessage());
 	}
 	
-	public static void displayClassmate(
+	private static void displayClassmate(
 			ClassmatesController classmatesController,
 			Scanner scanner
 			) {
@@ -135,7 +151,7 @@ public class Main {
 			);
 	}
 	
-	public static void registerGroup(
+	private static void registerGroup(
 			GroupsController groupsController,
 			Scanner scanner
 			) {
@@ -160,7 +176,7 @@ public class Main {
 		);
 	}
 	
-	public static void allocateClassmateInGroup(
+	private static void allocateClassmateInGroup(
 			ClassmatesController classmatesController,
 			GroupsController groupsController,
 			Scanner scanner
@@ -196,7 +212,7 @@ public class Main {
 		);
 	}
 	
-	public static void displayClassmateGroups(
+	private static void displayClassmateGroups(
 			ClassmatesController classmatesController,
 			GroupsController groupsController,
 			Scanner scanner
@@ -211,5 +227,32 @@ public class Main {
 				.displayClassmateGroups(classmate)
 				.getMessage()
 		);
+	}
+	
+	private static void registerClassmateAnswer(ClassmatesController classmatesController, Scanner scanner) {
+		System.out.println("Matricula: ");
+		String registrationNumber = scanner.next();
+		
+		System.out.println(
+				classmatesController
+				.registerClassmateAnswer(registrationNumber)
+				.getMessage()
+				);
+	}
+	
+	private static void displayAnswers(ClassmatesController classmatesController, Scanner scanner) {
+		System.out.println(
+				classmatesController
+				.displayClassmatesAnswers()
+				.getMessage()
+		);
+	}
+	
+	private static void showData(
+			ClassmatesController classmatesController,
+			GroupsController groupController,
+			Scanner scanner
+		) {
+		
 	}
 }
