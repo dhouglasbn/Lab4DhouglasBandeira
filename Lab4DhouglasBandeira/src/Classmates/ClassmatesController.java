@@ -105,10 +105,26 @@ public class ClassmatesController {
 	}
 	
 	public Classmate[] getMostActiveClassmates() {
-		Classmate[] mostActive = null;
+		Classmate[] mostActive = new Classmate[1];
 		for (Classmate classmate: this.ClassmatesMap.values()) {
-			
+			if (mostActive[0] == null) {
+				mostActive[0] = classmate;
+			} else if (mostActive[0].getNumberOfGroups() == classmate.getNumberOfGroups()) {
+				Classmate[] newArray = {mostActive[0], classmate};
+				mostActive = newArray;
+			}
 		}
 		return mostActive;
+	}
+	
+	public String displayClassmatesWithoutGroups() {
+		String result = "Alunos sem grupo:\n";
+		for(Classmate classmate: this.ClassmatesMap.values()) {
+			if (classmate.getNumberOfGroups() == 0) {
+				result += classmate.getName() + "\n";
+			}
+		}
+		
+		return result;
 	}
 }

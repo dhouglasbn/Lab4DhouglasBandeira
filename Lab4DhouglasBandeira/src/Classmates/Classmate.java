@@ -71,6 +71,10 @@ public class Classmate {
 	public boolean isOnGroup(String groupName) {
 		return this.groups.contains(groupName);
 	}
+	
+	public int getNumberOfGroups() {
+		return this.groups.size();
+	}
 
 	@Override
 	public String toString() {
