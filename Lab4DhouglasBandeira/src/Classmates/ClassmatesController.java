@@ -1,6 +1,8 @@
 package Classmates;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
 
 public class ClassmatesController {
@@ -104,17 +106,24 @@ public class ClassmatesController {
 		return new OperationResult(1, result);
 	}
 	
-	public Classmate[] getMostActiveClassmates() {
-		Classmate[] mostActive = new Classmate[1];
+	public String[] getMostActiveClassmates() {
+		if (this.ClassmatesMap.size() == 0) {
+			return new String[0];
+		}
+		ArrayList<String> namesList = new ArrayList<>();
+		ArrayList<Classmate> classmatesList = new ArrayList<>();
 		for (Classmate classmate: this.ClassmatesMap.values()) {
-			if (mostActive[0] == null) {
-				mostActive[0] = classmate;
-			} else if (mostActive[0].getNumberOfGroups() == classmate.getNumberOfGroups()) {
-				Classmate[] newArray = {mostActive[0], classmate};
-				mostActive = newArray;
+			classmatesList.add(classmate);
+		}
+		Collections.sort(classmatesList, Comparator.comparing(Classmate::getNumberOfGroups));
+		int moreGroups = classmatesList.get(classmatesList.size() - 1).getNumberOfGroups();
+		for (int index = classmatesList.size() - 1; index >= 0; index--) {
+			if (classmatesList.get(index).getNumberOfGroups() == moreGroups) {
+				namesList.add(classmatesList.get(index).getName());
 			}
 		}
-		return mostActive;
+		
+		return namesList.toArray(new String[] {});
 	}
 	
 	public String displayClassmatesWithoutGroups() {

@@ -253,6 +253,11 @@ public class Main {
 			GroupsController groupController,
 			Scanner scanner
 		) {
+		System.out.println("Aluno(a)(s) que pertence(m) a mais grupos:\n");
+		for (String name : classmatesController.getMostActiveClassmates()) {
+			System.out.println(name + "\n");
+		}
 		
+		System.out.println(classmatesController.displayClassmatesWithoutGroups());
 	}
 }

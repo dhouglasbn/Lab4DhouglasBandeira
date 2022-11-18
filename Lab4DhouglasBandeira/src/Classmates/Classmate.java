@@ -38,6 +38,7 @@ public class Classmate {
 		this.registrationNumber = registrationNumber;
 		this.name = name;
 		this.course = course;
+		this.groups = new HashSet<>();
 	}
 	
 	/** Retorna o número de matrícula.
