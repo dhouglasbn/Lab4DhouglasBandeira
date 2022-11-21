@@ -1,4 +1,4 @@
-package Classmates;
+package classmates;
 
 public class OperationResult {
 

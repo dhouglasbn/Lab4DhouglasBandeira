@@ -1,10 +1,15 @@
-package Classmates;
+package classmates;
 
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
 import java.util.HashMap;
 
+/** Representação de um controlador de alunos.
+ * Responsável por toda a regra de negócio e manipulação
+ * de alunos.
+ * 
+ * @author Dhouglas Bandeira Nóbrega
+ *
+ */
 public class ClassmatesController {
 
 	/**
@@ -15,14 +20,14 @@ public class ClassmatesController {
 	/**
 	 * Lista ordenada de alunos que responderam às perguntas.
 	 */
-	private ArrayList<Classmate> answeredQuestions;
+	private ArrayList<Classmate> answeredClassmates;
 	
 	/**
 	 * Cria um Controlador de alunos.
 	 */
 	public ClassmatesController() {
 		this.ClassmatesMap = new HashMap<>();
-		this.answeredQuestions = new ArrayList<Classmate>();
+		this.answeredClassmates = new ArrayList<Classmate>();
 	}
 	
 
@@ -89,14 +94,18 @@ public class ClassmatesController {
 			return new OperationResult(0, "Aluno não cadastrado.");
 		}
 		
-		this.answeredQuestions.add(classmate);
+		this.answeredClassmates.add(classmate);
 		return new OperationResult(1, "ALUNO REGISTRADO!");
 	}
 	
-	public OperationResult displayClassmatesAnswers() {
+	/** Exibe a lista de alunos que responderam às perguntas.
+	 * 
+	 * @return Lista de alunos
+	 */
+	public OperationResult displayAnsweredClassmates() {
 		int index = 0;
 		String result = "Alunos:\n";
-		for (Classmate classmate: this.answeredQuestions) {
+		for (Classmate classmate: this.answeredClassmates) {
 			index++;
 			result += index +
 					". " + classmate.getRegistrationNumber() +
@@ -106,34 +115,34 @@ public class ClassmatesController {
 		return new OperationResult(1, result);
 	}
 	
-	public String[] getMostActiveClassmates() {
-		if (this.ClassmatesMap.size() == 0) {
-			return new String[0];
-		}
-		ArrayList<String> namesList = new ArrayList<>();
-		ArrayList<Classmate> classmatesList = new ArrayList<>();
-		for (Classmate classmate: this.ClassmatesMap.values()) {
-			classmatesList.add(classmate);
-		}
-		Collections.sort(classmatesList, Comparator.comparing(Classmate::getNumberOfGroups));
-		int moreGroups = classmatesList.get(classmatesList.size() - 1).getNumberOfGroups();
-		for (int index = classmatesList.size() - 1; index >= 0; index--) {
-			if (classmatesList.get(index).getNumberOfGroups() == moreGroups) {
-				namesList.add(classmatesList.get(index).getName());
-			}
-		}
-		
-		return namesList.toArray(new String[] {});
-	}
+//	public String[] getMostActiveClassmates() {
+//		if (this.ClassmatesMap.size() == 0) {
+//			return new String[0];
+//		}
+//		ArrayList<String> namesList = new ArrayList<>();
+//		ArrayList<Classmate> classmatesList = new ArrayList<>();
+//		for (Classmate classmate: this.ClassmatesMap.values()) {
+//			classmatesList.add(classmate);
+//		}
+//		Collections.sort(classmatesList, Comparator.comparing(Classmate::getNumberOfGroups));
+//		int moreGroups = classmatesList.get(classmatesList.size() - 1).getNumberOfGroups();
+//		for (int index = classmatesList.size() - 1; index >= 0; index--) {
+//			if (classmatesList.get(index).getNumberOfGroups() == moreGroups) {
+//				namesList.add(classmatesList.get(index).getName());
+//			}
+//		}
+//		
+//		return namesList.toArray(new String[] {});
+//	}
 	
-	public String displayClassmatesWithoutGroups() {
-		String result = "Alunos sem grupo:\n";
-		for(Classmate classmate: this.ClassmatesMap.values()) {
-			if (classmate.getNumberOfGroups() == 0) {
-				result += classmate.getName() + "\n";
-			}
-		}
-		
-		return result;
-	}
+//	public String displayClassmatesWithoutGroups() {
+//		String result = "Alunos sem grupo:\n";
+//		for(Classmate classmate: this.ClassmatesMap.values()) {
+//			if (classmate.getNumberOfGroups() == 0) {
+//				result += classmate.getName() + "\n";
+//			}
+//		}
+//		
+//		return result;
+//	}
 }

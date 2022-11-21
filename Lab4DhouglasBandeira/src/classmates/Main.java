@@ -1,7 +1,13 @@
-package Classmates;
+package classmates;
 
 import java.util.Scanner;
 
+/** Classe main do projeto com menu de acesso
+ * às funcionalidades do programa.
+ * 
+ * @author Dhouglas Bandeira
+ *
+ */
 public class Main {
 
 	public static void main(String[] args) {
@@ -100,13 +106,13 @@ public class Main {
 		case "I":
 			displayAnswers(classmatesController, scanner);
 			break;
-		case "M":
-			showData(
-					classmatesController,
-					groupController,
-					scanner
-					);
-			break;
+//		case "M":
+//			showData(
+//					classmatesController,
+//					groupController,
+//					scanner
+//					);
+//			break;
 		case "S":
 			System.out.println("FINALIZANDO...");
 			System.exit(0);
@@ -141,7 +147,6 @@ public class Main {
 			ClassmatesController classmatesController,
 			Scanner scanner
 			) {
-		
 		System.out.println("Matrícula: ");
 		String registrationNumber = scanner.next();
 		
@@ -243,21 +248,21 @@ public class Main {
 	private static void displayAnswers(ClassmatesController classmatesController, Scanner scanner) {
 		System.out.println(
 				classmatesController
-				.displayClassmatesAnswers()
+				.displayAnsweredClassmates()
 				.getMessage()
 		);
 	}
 	
-	private static void showData(
-			ClassmatesController classmatesController,
-			GroupsController groupController,
-			Scanner scanner
-		) {
-		System.out.println("Aluno(a)(s) que pertence(m) a mais grupos:\n");
-		for (String name : classmatesController.getMostActiveClassmates()) {
-			System.out.println(name + "\n");
-		}
-		
-		System.out.println(classmatesController.displayClassmatesWithoutGroups());
-	}
+//	private static void showData(
+//			ClassmatesController classmatesController,
+//			GroupsController groupController,
+//			Scanner scanner
+//		) {
+//		System.out.println("Aluno(a)(s) que pertence(m) a mais grupos:\n");
+//		for (String name : classmatesController.getMostActiveClassmates()) {
+//			System.out.println(name + "\n");
+//		}
+//		
+//		System.out.println(classmatesController.displayClassmatesWithoutGroups());
+//	}
 }

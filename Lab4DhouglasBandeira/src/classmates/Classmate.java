@@ -1,7 +1,14 @@
-package Classmates;
+package classmates;
 
 import java.util.HashSet;
 
+/** Representação de um aluno.
+ * Todo aluno precisa de um número de matrícula,
+ * nome próprio e nome do curso para ser formado.
+ * 
+ * @author Dhouglas Bandeira
+ *
+ */
 public class Classmate {
 	
 	/**
@@ -65,14 +72,27 @@ public class Classmate {
 		return course;
 	}
 	
+	/** Adiciona um grupo para a lista de grupos aos quais o aluno pertence.
+	 * 
+	 * @param Nome do grupo
+	 */
 	public void addGroup(String groupName) {
 		this.groups.add(groupName);
 	}
 	
+	/** Verifica se o aluno pertence ao grupo
+	 * 
+	 * @param Nome do grupo
+	 * @return true - aluno pertence ao grupo, false - aluno não pertence ao grupo.
+	 */
 	public boolean isOnGroup(String groupName) {
 		return this.groups.contains(groupName);
 	}
 	
+	/** Verifica quantos grupos o aluno pertence
+	 * 
+	 * @return Quantidade de grupos.
+	 */
 	public int getNumberOfGroups() {
 		return this.groups.size();
 	}

@@ -1,7 +1,13 @@
-package Classmates;
+package classmates;
 
 import java.util.HashSet;
 
+/** Representação de um grupo.
+ * Todo grupo deve possuir um nome para ser formado.
+ * 
+ * @author Dhouglas Bandeira
+ *
+ */
 public class Group {
 	
 	/**
@@ -87,5 +93,13 @@ public class Group {
 	 */
 	public int getMaxSize() {
 		return this.maxSize;
+	}
+	
+	/** Pega o conjunto de alunos.
+	 * 
+	 * @return Classmates set.
+	 */
+	public HashSet<Classmate> getClassmates() {
+		return this.classmatesSet;
 	}
 }
