@@ -17,10 +17,16 @@ public class GroupsController {
 	private HashMap<String, Group> GroupMap;
 	
 	/**
+	 * Controlador de alunos
+	 */
+	private ClassmatesController classmatesController;
+	
+	/**
 	 * Cria um controlador de grupos.
 	 */
-	public GroupsController() {
+	public GroupsController(ClassmatesController classmatesController) {
 		this.GroupMap = new HashMap<>();
+		this.classmatesController = classmatesController;
 	}
 	
 	/** Registra um grupo no mapa.
@@ -82,12 +88,16 @@ public class GroupsController {
 	 * @param Nome do grupo.
 	 * @return Estado de sucesso da adição do aluno ao grupo.
 	 */
-	public OperationResult addClassmateToGroup(Classmate classmate, String groupName) {
+	public OperationResult addClassmateToGroup(String registrationNumber, String groupName) {
+		Classmate classmate = this
+				.classmatesController
+				.getClassmate(registrationNumber);
+		
 		if (classmate == null) {
 			return new OperationResult(0, "ALUNO NÃO CADASTRADO.");
 		}
 		if (!this.groupAlreadyExists(groupName)) {
-			return new OperationResult(0, "GRUPO NÃO CADASTRADO");
+			return new OperationResult(0, "GRUPO NÃO CADASTRADO.");
 		}
 		
 		Group group = this.getGroup(groupName);
@@ -111,12 +121,16 @@ public class GroupsController {
 	 * @param Nome do grupo.
 	 * @return Estado de sucesso da operação.
 	 */
-	public OperationResult classmateBelongsToGroup(Classmate classmate, String groupName) {
+	public OperationResult classmateBelongsToGroup(String registrationNumber, String groupName) {
+		Classmate classmate = this
+				.classmatesController
+				.getClassmate(registrationNumber);
+		
 		if (classmate == null) {
 			return new OperationResult(0, "ALUNO NÃO CADASTRADO.");
 		}
 		if (!this.groupAlreadyExists(groupName)) {
-			return new OperationResult(0, "GRUPO NÃO CADASTRADO");
+			return new OperationResult(0, "GRUPO NÃO CADASTRADO.");
 		}
 		
 		if (classmate.isOnGroup(groupName)) {
@@ -131,7 +145,12 @@ public class GroupsController {
 	 * @param Aluno.
 	 * @return Estado de sucesso da operação.
 	 */
-	public OperationResult displayClassmateGroups(Classmate classmate) {
+	public OperationResult displayClassmateGroups(String registrationNumber) {
+		Classmate classmate = this
+				.classmatesController
+				.getClassmate(registrationNumber);
+		
+		
 		if (classmate == null) {
 			return new OperationResult(0, "ALUNO NÃO CADASTRADO.");
 		}

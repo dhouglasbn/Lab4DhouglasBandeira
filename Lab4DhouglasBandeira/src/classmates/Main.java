@@ -13,7 +13,7 @@ public class Main {
 	public static void main(String[] args) {
 		Scanner scanner = new Scanner(System.in);
 		ClassmatesController classmatesController = new ClassmatesController();
-		GroupsController groupsController = new GroupsController();
+		GroupsController groupsController = new GroupsController(classmatesController);
 		String choose = "";
 		while (true) {
 			choose = menu(scanner);
@@ -190,11 +190,10 @@ public class Main {
 		String registrationNumber = scanner.next();
 		System.out.println("Grupo: ");
 		String groupName = scanner.next();
-		Classmate classmate = classmatesController.getClassmate(registrationNumber);
 		
 		System.out.println(
 				groupsController
-				.addClassmateToGroup(classmate, groupName)
+				.addClassmateToGroup(registrationNumber, groupName)
 				.getMessage()
 		);
 	}
@@ -208,11 +207,10 @@ public class Main {
 		String groupName = scanner.next();
 		System.out.println("Aluno: ");
 		String registrationNumber = scanner.next();
-		Classmate classmate = classmatesController.getClassmate(registrationNumber);
 		
 		System.out.println(
 				groupsController
-				.classmateBelongsToGroup(classmate, groupName)
+				.classmateBelongsToGroup(registrationNumber, groupName)
 				.getMessage()
 		);
 	}
@@ -225,11 +223,9 @@ public class Main {
 		System.out.println("Aluno: ");
 		String registrationNumber = scanner.next();
 		
-		Classmate classmate = classmatesController.getClassmate(registrationNumber);
-		
 		System.out.println(
 				groupsController
-				.displayClassmateGroups(classmate)
+				.displayClassmateGroups(registrationNumber)
 				.getMessage()
 		);
 	}
