@@ -103,11 +103,10 @@ public class ClassmatesController {
 	 * @return Lista de alunos
 	 */
 	public OperationResult displayAnsweredClassmates() {
-		int index = 0;
 		String result = "Alunos:\n";
-		for (Classmate classmate: this.answeredClassmates) {
-			index++;
-			result += index +
+		for (int index = 0; index < this.answeredClassmates.size(); index++) {
+			Classmate classmate = this.answeredClassmates.get(index);
+			result += (index + 1) +
 					". " + classmate.getRegistrationNumber() +
 					" - " + classmate.getName() +
 					" - " + classmate.getCourse() + "\n";
