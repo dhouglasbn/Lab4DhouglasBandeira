@@ -1,6 +1,7 @@
 package classmates;
 
 import java.util.HashMap;
+import java.util.HashSet;
 
 /** Representação de um controlador de grupos.
  * O controlador é responsável por toda a regra
@@ -169,27 +170,25 @@ public class GroupsController {
 		return new OperationResult(1, result);
 	}
 	
-//	public String displayGroupCourses(Group group) {
-//		String result = "";
-//		HashMap<String, Integer> courses = new HashMap<>();
-//		for (Classmate classmate: group.getClassmates()) {
-//			if (!courses.containsKey(classmate.getCourse())) {
-//				courses.put(classmate.getCourse(), 1);
-//			} else {
-//				courses.put(classmate.getCourse(), courses.get(classmate.getCourse()) + 1);
-//			}
-//		}
-//		for (Integer numberOfCourses: courses.values()) {
-//			result += coursesKeys[index] + ;
-//		}
-//		return result;
-//	}
+	private String displayGroupCourses(Group group) {
+		return null;
+	}
 	
-//	public String displayGroupsCourses() {
-//		String result = "";
-//		for (Group group: this.GroupMap.values()) {
-//			result += group.getName() + ": " + this.displayGroupCourses(group) + "\n";
-//		}
-//		return result;
-//	}
+	public String displayGroupsCourses() {
+		String result = "";
+		for (Group group: this.GroupMap.values()) {
+			result += group.getName() + ": " + this.displayGroupCourses(group) + "\n";
+		}
+		return result;
+	}
+	
+	private void addCourseOnGroup(String course, Group group) {
+		HashMap<String, Integer> groupCourses = group.getGroupCourses();
+		
+		if (groupCourses.containsKey(course)) {
+			group.addCourse(course);
+		} else {
+			group.putCourse(course);
+		}
+	}
 }

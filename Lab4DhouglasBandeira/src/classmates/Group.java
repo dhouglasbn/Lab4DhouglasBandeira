@@ -1,5 +1,6 @@
 package classmates;
 
+import java.util.HashMap;
 import java.util.HashSet;
 
 /** Representação de um grupo.
@@ -24,6 +25,11 @@ public class Group {
 	 * Número máximo de alunos no grupo
 	 */
 	private int maxSize;
+	
+	/**
+	 * Mapa de cursos e quantidades.
+	 */
+	private HashMap<String, Integer> groupCourses;
 
 	/** Constroi um grupo a partir de seu nome
 	 * 
@@ -101,5 +107,29 @@ public class Group {
 	 */
 	public HashSet<Classmate> getClassmates() {
 		return this.classmatesSet;
+	}
+	
+	/** insere um grupo, com um aluno
+	 * 
+	 * @param nome do curso
+	 */
+	public void putCourse(String course) {
+		this.groupCourses.put(course, 1);
+	}
+	
+	/** Adiciona um aluno a um curso.
+	 * 
+	 * @param nome do curso
+	 */
+	public void addCourse(String course) {
+		this.groupCourses.put(course, this.groupCourses.get(course) + 1);
+	}
+	
+	/** Retorna os cursos do grupo
+	 * 
+	 * @return mapa de cursos e números.
+	 */
+	public HashMap<String, Integer> getGroupCourses() {
+		return this.groupCourses;
 	}
 }
