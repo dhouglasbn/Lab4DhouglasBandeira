@@ -1,6 +1,8 @@
 package classmates;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
 
 /** Representação de um controlador de alunos.
@@ -114,34 +116,59 @@ public class ClassmatesController {
 		return new OperationResult(1, result);
 	}
 	
-//	public String[] getMostActiveClassmates() {
-//		if (this.ClassmatesMap.size() == 0) {
-//			return new String[0];
-//		}
-//		ArrayList<String> namesList = new ArrayList<>();
-//		ArrayList<Classmate> classmatesList = new ArrayList<>();
-//		for (Classmate classmate: this.ClassmatesMap.values()) {
-//			classmatesList.add(classmate);
-//		}
-//		Collections.sort(classmatesList, Comparator.comparing(Classmate::getNumberOfGroups));
-//		int moreGroups = classmatesList.get(classmatesList.size() - 1).getNumberOfGroups();
-//		for (int index = classmatesList.size() - 1; index >= 0; index--) {
-//			if (classmatesList.get(index).getNumberOfGroups() == moreGroups) {
-//				namesList.add(classmatesList.get(index).getName());
-//			}
-//		}
-//		
-//		return namesList.toArray(new String[] {});
-//	}
+	/** Retorna a lista de alunos que não participam de grupos.
+	 * 
+	 * @return lista de alunos
+	 */
+	public OperationResult displayClassmatesWithoutGroups() {
+		String result = "Alunos sem grupo:\n";
+		for(Classmate classmate: this.ClassmatesMap.values()) {
+			if (classmate.getNumberOfGroups() == 0) {
+				result += classmate.getName() + "\n";
+			}
+		}
+		
+		return new OperationResult(1, result);
+	}
 	
-//	public String displayClassmatesWithoutGroups() {
-//		String result = "Alunos sem grupo:\n";
-//		for(Classmate classmate: this.ClassmatesMap.values()) {
-//			if (classmate.getNumberOfGroups() == 0) {
-//				result += classmate.getName() + "\n";
-//			}
-//		}
-//		
-//		return result;
-//	}
+	/** Mostra a lista de alunos que participam de mais grupos.
+	 * 
+	 * @return resultado da operação com a lista.
+	 */
+	public OperationResult displayMostActiveClassmates() {
+		String result = "Alunos que participam de mais grupos:\n";
+		String[] mostActive = this.getMostActiveClassmates();
+		for (int index = 0; index < mostActive.length; index++) {
+			result += mostActive[index];
+		}
+		return new OperationResult(1, result);
+	}
+	
+	/** Pega a lista de alunos que pertencem a mais grupos.
+	 * 
+	 * @return Lista de alunos e quantidade de grupos.
+	 */
+	private String[] getMostActiveClassmates() {
+		if (this.ClassmatesMap.size() == 0) {
+			return new String[0];
+		}
+		ArrayList<String> namesList = new ArrayList<>();
+		ArrayList<Classmate> classmatesList = new ArrayList<>();
+		for (Classmate classmate: this.ClassmatesMap.values()) {
+			classmatesList.add(classmate);
+		}
+		Collections.sort(classmatesList, Comparator.comparing(Classmate::getNumberOfGroups));
+		int moreGroups = classmatesList.get(classmatesList.size() - 1).getNumberOfGroups();
+		for (int index = classmatesList.size() - 1; index >= 0; index--) {
+			if (classmatesList.get(index).getNumberOfGroups() == moreGroups) {
+				namesList.add(
+						classmatesList.get(index).getName() 
+						+ " - " 
+						+ moreGroups + " grupos.\n"
+						);
+			}
+		}
+		
+		return namesList.toArray(new String[] {});
+	}
 }

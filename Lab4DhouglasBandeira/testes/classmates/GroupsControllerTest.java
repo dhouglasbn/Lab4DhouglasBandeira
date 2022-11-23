@@ -58,8 +58,8 @@ class GroupsControllerTest {
 				.groupsController
 				.registerGroup("Programation OO");
 		
-		assertEquals(result.getStatus(), 1, msg);
-		assertEquals(result.getMessage(), expectedMessage, msg2);
+		assertEquals(1, result.getStatus(), msg);
+		assertEquals(expectedMessage, result.getMessage(), msg2);
 	}
 
 	@Test
@@ -74,8 +74,8 @@ class GroupsControllerTest {
 				.groupsController
 				.registerGroup("Lists", 3);
 		
-		assertEquals(result.getStatus(), 1, msg);
-		assertEquals(result.getMessage(), expectedMessage, msg2);
+		assertEquals(1, result.getStatus(), msg);
+		assertEquals(expectedMessage, result.getMessage(), msg2);
 	}
 
 	@Test
@@ -92,8 +92,8 @@ class GroupsControllerTest {
 				.groupsController
 				.registerGroup("Lists", 5);
 		
-		assertEquals(result.getStatus(), 0, msg);
-		assertEquals(result.getMessage(), expectedMessage, msg2);
+		assertEquals(0, result.getStatus(), msg);
+		assertEquals(expectedMessage, result.getMessage(), msg2);
 	}
 	
 	@Test
@@ -143,8 +143,8 @@ class GroupsControllerTest {
 										groupName
 										);
 		
-		assertEquals(result.getStatus(), 1, msg);
-		assertEquals(result.getMessage(), expectedMessage, msg2);
+		assertEquals(1, result.getStatus(), msg);
+		assertEquals(expectedMessage, result.getMessage(), msg2);
 		
 		OperationResult result2 = this
 				.groupsController
@@ -153,8 +153,8 @@ class GroupsControllerTest {
 						groupName
 						);
 
-		assertEquals(result2.getStatus(), 1, msg);
-		assertEquals(result2.getMessage(), expectedMessage, msg2);
+		assertEquals(1, result2.getStatus(), msg);
+		assertEquals(expectedMessage, result2.getMessage(), msg2);
 	}
 	
 	@Test
@@ -182,8 +182,8 @@ class GroupsControllerTest {
 				.groupsController
 				.addClassmateToGroup(classmate1.getRegistrationNumber(), groupName);
 
-		assertEquals(result.getStatus(), 0, msg);
-		assertEquals(result.getMessage(), expectedMessage, msg2);
+		assertEquals(0, result.getStatus(), msg);
+		assertEquals(expectedMessage, result.getMessage(), msg2);
 	}
 	
 	@Test
@@ -210,8 +210,8 @@ class GroupsControllerTest {
 				.groupsController
 				.addClassmateToGroup(classmate.getRegistrationNumber(), groupName);
 
-		assertEquals(result.getStatus(), 0, msg);
-		assertEquals(result.getMessage(), expectedMessage, msg2);
+		assertEquals(0, result.getStatus(), msg);
+		assertEquals(expectedMessage, result.getMessage(), msg2);
 	}
 	
 	@Test
@@ -232,8 +232,8 @@ class GroupsControllerTest {
 				.groupsController
 				.addClassmateToGroup(classmate.getRegistrationNumber(), groupName);
 
-		assertEquals(result.getStatus(), 0, msg);
-		assertEquals(result.getMessage(), expectedMessage, msg2);
+		assertEquals(0, result.getStatus(), msg);
+		assertEquals(expectedMessage, result.getMessage(), msg2);
 	}
 	
 	@Test
@@ -257,8 +257,8 @@ class GroupsControllerTest {
 				.groupsController
 				.addClassmateToGroup(classmate2.getRegistrationNumber(), groupName);
 
-		assertEquals(result.getStatus(), 0, msg);
-		assertEquals(result.getMessage(), expectedMessage, msg2);
+		assertEquals(0, result.getStatus(), msg);
+		assertEquals(expectedMessage, result.getMessage(), msg2);
 	}
 	
 	@Test
@@ -289,8 +289,8 @@ class GroupsControllerTest {
 						groupName
 						);
 
-		assertEquals(result.getStatus(), 1, msg);
-		assertEquals(result.getMessage(), expectedSuccessMessage, msg2);
+		assertEquals(1, result.getStatus(), msg);
+		assertEquals(expectedSuccessMessage, result.getMessage(), msg2);
 		
 		OperationResult result2 = this
 				.groupsController
@@ -299,8 +299,8 @@ class GroupsControllerTest {
 						groupName
 						);
 		
-		assertEquals(result2.getStatus(), 0, msg3);
-		assertEquals(result2.getMessage(), expectedErrorMessage, msg4);
+		assertEquals(0, result2.getStatus(), msg3);
+		assertEquals(expectedErrorMessage, result2.getMessage(), msg4);
 	}
 	
 	@Test
@@ -320,8 +320,8 @@ class GroupsControllerTest {
 						groupName
 						);
 
-		assertEquals(result.getStatus(), 0, msg);
-		assertEquals(result.getMessage(), expectedMessage, msg2);
+		assertEquals(0, result.getStatus(), msg);
+		assertEquals(expectedMessage, result.getMessage(), msg2);
 	}
 	
 	@Test
@@ -343,8 +343,8 @@ class GroupsControllerTest {
 						groupName
 						);
 
-		assertEquals(result.getStatus(), 0, msg);
-		assertEquals(result.getMessage(), expectedMessage, msg2);
+		assertEquals(0, result.getStatus(), msg);
+		assertEquals(expectedMessage, result.getMessage(), msg2);
 	}
 	
 	@Test
@@ -360,8 +360,8 @@ class GroupsControllerTest {
 				.groupsController
 				.displayClassmateGroups(classmate.getRegistrationNumber());
 
-		assertEquals(result.getStatus(), 1, msg);
-		assertEquals(result.getMessage(), expectedMessage, msg2);
+		assertEquals(1, result.getStatus(), msg);
+		assertEquals(expectedMessage, result.getMessage(), msg2);
 	}
 	
 	@Test
@@ -393,8 +393,8 @@ class GroupsControllerTest {
 				.groupsController
 				.displayClassmateGroups(classmate.getRegistrationNumber());
 
-		assertEquals(result.getStatus(), 1, msg);
-		assertEquals(result.getMessage(), expectedMessage, msg2);
+		assertEquals(1, result.getStatus(), msg);
+		assertEquals(expectedMessage, result.getMessage(), msg2);
 	}
 	
 	@Test
@@ -417,7 +417,34 @@ class GroupsControllerTest {
 				.groupsController
 				.displayClassmateGroups(classmate.getRegistrationNumber());
 
-		assertEquals(result.getStatus(), 0, msg);
-		assertEquals(result.getMessage(), expectedMessage, msg2);
+		assertEquals(0, result.getStatus(), msg);
+		assertEquals(expectedMessage, result.getMessage(), msg2);
+	}
+	
+	@Test
+	void displayGroupNonRepeatedCoursesTest() {
+		String msg = "Espera-se que a operação seja bem sucedida(status: 1).";
+		String msg2 = "Espera-se que a operação "
+				+ "produza a mensagem de sucesso esperada.";
+		
+		String expectedMessage = "Cursos de cada grupo:\n"
+				+ "poo: Engenharia Mecânica 1 Artes cênicas 1 /\n"
+				+ "lists: Ciência da Computação 1 Medicina 1 /\n";
+		
+		String groupName = "POO";
+		String secondGroupName= "Lists";
+		
+		this.groupsController.registerGroup(groupName, 2);
+		this.groupsController.registerGroup(secondGroupName, 2);
+		
+		this.groupsController.addClassmateToGroup("100", groupName);
+		this.groupsController.addClassmateToGroup("200", groupName);
+		this.groupsController.addClassmateToGroup("300", secondGroupName);
+		this.groupsController.addClassmateToGroup("400", secondGroupName);
+		
+		OperationResult result = this.groupsController.displayGroupsCourses();
+		
+		assertEquals(1, result.getStatus(), msg);
+		assertEquals(expectedMessage, result.getMessage(), msg2);
 	}
 }

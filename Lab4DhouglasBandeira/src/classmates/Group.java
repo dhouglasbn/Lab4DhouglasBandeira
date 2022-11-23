@@ -38,6 +38,7 @@ public class Group {
 	public Group(String name) {
 		this.name = name;
 		this.classmatesSet = new HashSet<>();
+		this.groupCourses = new HashMap<>();
 		this.maxSize = -1;
 	}
 	
@@ -50,6 +51,7 @@ public class Group {
 		this.name = name;
 		this.classmatesSet = new HashSet<>();
 		this.maxSize = maxSize;
+		this.groupCourses = new HashMap<>();
 	}
 	
 	/** Retorna o nome do grupo.

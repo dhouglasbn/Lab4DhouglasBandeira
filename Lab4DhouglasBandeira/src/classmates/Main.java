@@ -106,20 +106,20 @@ public class Main {
 		case "I":
 			displayAnswers(classmatesController, scanner);
 			break;
-//		case "M":
-//			showData(
-//					classmatesController,
-//					groupController,
-//					scanner
-//					);
-//			break;
+		case "M":
+			showData(
+					classmatesController,
+					groupController,
+					scanner
+					);
+			break;
 		case "S":
 			System.out.println("FINALIZANDO...");
 			System.exit(0);
 			break;
 		default:
 			System.out.println("AÇÂO INVÁLIDA!");
-			System.exit(0);
+			break;
 		}
 	}
 
@@ -249,16 +249,25 @@ public class Main {
 		);
 	}
 	
-//	private static void showData(
-//			ClassmatesController classmatesController,
-//			GroupsController groupController,
-//			Scanner scanner
-//		) {
-//		System.out.println("Aluno(a)(s) que pertence(m) a mais grupos:\n");
-//		for (String name : classmatesController.getMostActiveClassmates()) {
-//			System.out.println(name + "\n");
-//		}
-//		
-//		System.out.println(classmatesController.displayClassmatesWithoutGroups());
-//	}
+	private static void showData(
+			ClassmatesController classmatesController,
+			GroupsController groupController,
+			Scanner scanner
+		) {
+		System.out.println(
+				classmatesController
+				.displayMostActiveClassmates()
+				.getMessage()
+				);
+		System.out.println(
+				groupController
+				.displayGroupsCourses()
+				.getMessage()
+				);
+		System.out.println(
+				classmatesController
+				.displayClassmatesWithoutGroups()
+				.getMessage()
+				);
+	}
 }

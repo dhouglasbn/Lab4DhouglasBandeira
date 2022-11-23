@@ -33,7 +33,7 @@ class ClassmateTest {
 		
 		classmate.addGroup(groupName);
 		
-		assertEquals(classmate.getNumberOfGroups(), 1, msg);
+		assertEquals(1, classmate.getNumberOfGroups(), msg);
 		assertTrue(classmate.isOnGroup(groupName), msg2);
 	}
 	
@@ -63,7 +63,7 @@ class ClassmateTest {
 		String expectedResult = "Aluno: 100 - Daenerys Targaryen - " +
 		"Ciências da Computação";
 		
-		assertEquals(classmate.toString(), expectedResult, msg);
+		assertEquals(expectedResult, classmate.toString(), msg);
 	}
 
 }

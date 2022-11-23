@@ -1,7 +1,6 @@
 package classmates;
 
 import java.util.HashMap;
-import java.util.HashSet;
 
 /** Representação de um controlador de grupos.
  * O controlador é responsável por toda a regra
@@ -111,6 +110,7 @@ public class GroupsController {
 		}
 		
 		group.addClassmate(classmate);
+		this.addCourseOnGroup(classmate.getCourse(), group);
 		classmate.addGroup(groupName);
 		
 		return new OperationResult(1, "ALUNO ALOCADO!");
@@ -170,18 +170,37 @@ public class GroupsController {
 		return new OperationResult(1, result);
 	}
 	
-	private String displayGroupCourses(Group group) {
-		return null;
+	/** Mostra cada grupo com as quantidades de cada curso dos alunos.
+	 * 
+	 * @return grupos e quantidades de cursos.
+	 */
+	public OperationResult displayGroupsCourses() {
+		String result = "Cursos de cada grupo:\n";
+		for (Group group: this.GroupMap.values()) {
+			result += group.getName() + ": " 
+					+ this.displayGroupCourses(group) + "/\n";
+		}
+		return new OperationResult(1, result);
 	}
 	
-	public String displayGroupsCourses() {
+	/** Pega as quantidades de cursos em um grupo.
+	 * 
+	 * @param grupo
+	 * @return cursos e suas quantidades.
+	 */
+	private String displayGroupCourses(Group group) {
 		String result = "";
-		for (Group group: this.GroupMap.values()) {
-			result += group.getName() + ": " + this.displayGroupCourses(group) + "\n";
+		for (String course: group.getGroupCourses().keySet()) {
+			result += course + " " + group.getGroupCourses().get(course) + " ";
 		}
 		return result;
 	}
 	
+	/** Decide se incrementa um curso ou registra um novo curso ao grupo.
+	 * 
+	 * @param curso
+	 * @param grupo
+	 */
 	private void addCourseOnGroup(String course, Group group) {
 		HashMap<String, Integer> groupCourses = group.getGroupCourses();
 		
