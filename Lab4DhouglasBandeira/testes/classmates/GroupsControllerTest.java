@@ -447,4 +447,44 @@ class GroupsControllerTest {
 		assertEquals(1, result.getStatus(), msg);
 		assertEquals(expectedMessage, result.getMessage(), msg2);
 	}
+	
+	@Test
+	void displayGroupRepeatedCoursesTest() {
+		String msg = "Espera-se que a operação seja bem sucedida(status: 1).";
+		String msg2 = "Espera-se que a operação "
+				+ "produza a mensagem de sucesso esperada.";
+		
+		String expectedMessage = "Cursos de cada grupo:\n"
+				+ "poo: Engenharia Mecânica 2 Artes cênicas 1 /\n"
+				+ "lists: Ciência da Computação 1 Medicina 2 /\n";
+		
+		String groupName = "POO";
+		String secondGroupName= "Lists";
+		
+		this.classmatesController.registerClassmate(
+				"500",
+				"Jacaerys Targaryen",
+				"Engenharia Mecânica"
+				);
+		this.classmatesController.registerClassmate(
+				"600",
+				"Sir Jaime Lannister",
+				"Medicina"
+				);
+		
+		this.groupsController.registerGroup(groupName, 3);
+		this.groupsController.registerGroup(secondGroupName, 3);
+		
+		this.groupsController.addClassmateToGroup("100", groupName);
+		this.groupsController.addClassmateToGroup("200", groupName);
+		this.groupsController.addClassmateToGroup("500", groupName);
+		this.groupsController.addClassmateToGroup("300", secondGroupName);
+		this.groupsController.addClassmateToGroup("400", secondGroupName);
+		this.groupsController.addClassmateToGroup("600", secondGroupName);
+		
+		OperationResult result = this.groupsController.displayGroupsCourses();
+		
+		assertEquals(1, result.getStatus(), msg);
+		assertEquals(expectedMessage, result.getMessage(), msg2);
+	}
 }
