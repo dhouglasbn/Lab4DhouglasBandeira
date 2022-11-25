@@ -90,7 +90,7 @@ public class Main {
 					break;
 				default:
 					System.out.println("AÇÂO INVÁLIDA!");
-					System.exit(0);
+					break;
 			}
 			break;
 		case "O":
